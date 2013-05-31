@@ -1,0 +1,162 @@
+{% extends 'base.html' %} {% block content_formulario %}
+{% load i18n admin_static %}
+
+{% block estilos_personalizados %}
+{{ block.super }}
+	<link href="{% static "css/jquery-ui-1.10.3.custom.min.css" %}" rel="stylesheet" type="text/css" />
+{% endblock estilos_personalizados %}
+
+<style type="text/css">
+	.errorlist{
+		color: red;
+		list-style-type: none;
+		margin: -10px 0 12px 5px;
+	}
+	.modal-body{
+		font-size: 16px;
+	}
+</style>
+<div class="page_container">
+	<div class="breadcrumb">
+		<div class="wrap">
+			<div class="container">
+				Home<span>/</span>Participe
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="wrap">
+		<div class="container">
+<!-- 			<div class="row"> -->
+				<h2 class="title">
+					<span>Formulário de Participação</span>
+					<h4 class="detalhe">Os campos com * são de preenchimento obrigatório.</h4>
+				</h2>
+
+				<form id="form-participe" action="." method="POST">
+					{% csrf_token %}
+					
+						<div class="row-fluid">
+							<div class="span2">
+								<label for="{{form_pessoa.cpf.id_for_label}}">{{form_pessoa.cpf.label}}.:*</label>
+								{{form_pessoa.cpf}}
+							</div>
+							<div class="span1">
+								<button id="verificar_cadastro" class="btn" type="button" style="margin-top:24px;font-size: 9px">Verificar</button>
+							</div>
+							<div class="span6">
+								<label for="{{form_pessoa.nome.id_for_label}}">{{form_pessoa.nome.label}}:*</label>
+								{{form_pessoa.nome}} {{form_pessoa.nome.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_pessoa.dt_nascimento.id_for_label}}">{{form_pessoa.dt_nascimento.label}}:*</label>
+								{{form_pessoa.dt_nascimento}} {{form_pessoa.dt_nascimento.errors}}
+							</div>
+						</div>
+	
+						<div class="row-fluid">
+							<div class="span3">
+								<label for="{{form_pessoa.sexo.id_for_label}}">{{form_pessoa.sexo.label}}:*</label>
+								{{form_pessoa.sexo}} {{form_pessoa.sexo.errors}}
+	
+							</div>
+							<div class="span3">
+								<label for="{{form_pessoa.escolaridade.id_for_label}}">{{form_pessoa.escolaridade.label}}:*</label>
+								{{form_pessoa.escolaridade}} {{form_pessoa.escolaridade.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_pessoa.email.id_for_label}}">{{form_pessoa.email.label}}.:</label>
+								{{form_pessoa.email}} {{form_pessoa.email.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_pessoa.telefone.id_for_label}}">{{form_pessoa.telefone.label}}:</label>
+								{{form_pessoa.telefone}} {{form_pessoa.telefone.errors}}
+							</div>
+						</div>
+						
+						<h4 class="detalhe">Caso seja representante de alguma Entidade, favor preencher os dados abaixo:</h4>
+						
+						<div class="row-fluid">
+							<div class="span6">
+								<label for="{{form_entidade.descricao.id_for_label}}">{{form_entidade.descricao.label}}:</label>
+								{{form_entidade.descricao}} {{form_entidade.descricao.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_entidade.cnpj.id_for_label}}">{{form_entidade.cnpj.label}}:</label>
+								{{form_entidade.cnpj}} {{form_entidade.cnpj.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_entidade.cargo.id_for_label}}">{{form_entidade.cargo.label}}:</label>
+								{{form_entidade.cargo}} {{form_entidade.cargo.errors}}
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span3">
+								<label for="{{form_entidade.municipio.id_for_label}}">{{form_entidade.municipio.label}}:</label>
+								{{form_entidade.municipio}} {{form_entidade.municipio.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_entidade.logradouro.id_for_label}}">{{form_entidade.logradouro.label}}:</label>
+								{{form_entidade.logradouro}} {{form_entidade.logradouro.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_entidade.numero.id_for_label}}">{{form_entidade.numero.label}}:</label>
+								{{form_entidade.numero}} {{form_entidade.numero.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_entidade.complemento.id_for_label}}">{{form_entidade.complemento.label}}:</label>
+								{{form_entidade.complemento}} {{form_entidade.complemento.errors}}
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span3">
+								<label for="{{form_entidade.bairro.id_for_label}}">{{form_entidade.bairro.label}}:</label>
+								{{form_entidade.bairro}} {{form_entidade.bairro.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_entidade.cep.id_for_label}}">{{form_entidade.cep.label}}:</label>
+								{{form_entidade.cep}} {{form_entidade.cep.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_entidade.email.id_for_label}}">{{form_entidade.email.label}}.:</label>
+								{{form_entidade.email}} {{form_entidade.email.errors}}
+							</div>
+							<div class="span3">
+								<label for="{{form_entidade.telefone.id_for_label}}">{{form_entidade.telefone.label}}:</label>
+								{{form_entidade.telefone}} {{form_entidade.telefone.errors}}
+							</div>
+						</div>
+					<p>
+						<input id="submit_cadastro" type="submit" value="Participar" class="btn" tabindex="19">
+					</p>
+				</form>
+<!-- 			</div> -->
+			<div id="modal_mensagem_erro" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Atenção!</h3>
+				</div>
+				<div class="modal-body">
+					<p id="mensagem_erro"></p>
+				</div>
+					<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+					<button class="btn" data-dismiss="modal" aria-hidden="true" style="display: none">Close</button>
+    				<button class="btn btn-primary" style="display: none">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--//page_container-->
+
+{% endblock content_formulario %}
+
+
+{% block javascript_personalizado %}
+{{ block.super }}
+	<script type="text/javascript" src="{% static "js/jquery.maskedinput.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/jquery-ui-1.10.3.custom.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/interface.js" %}"></script>
+{% endblock javascript_personalizado %}

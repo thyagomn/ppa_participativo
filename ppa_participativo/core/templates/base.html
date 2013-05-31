@@ -1,0 +1,268 @@
+{% load i18n admin_static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Orçamento Participativo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<link
+	href='{{ STATIC_URL}}css/fonts.css'
+	rel='stylesheet' type='text/css'>
+{% block estilos_personalizados %}
+	<link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+	<link href="{% static "css/theme.css" %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static "css/skins/tango/skin.css" %}" />
+	<link href="{% static "css/bootstrap-responsive.css" %}" rel="stylesheet">
+	<style type="text/css">
+	.logo-pref{
+		position: absolute;
+		float: right;
+		width: 350px;
+		margin-top: 40px;
+	}
+</style>
+{% endblock estilos_personalizados %}
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+	<!--header-->
+	<div class="header">
+		<div class="wrap">
+			<div class="navbar navbar_ clearfix">
+				<div class="container">
+					<div class="row">
+						<div class="span12">
+							<div class="logo">
+								<a href="/"><img src="{% static "img/logo.png" %}" alt="" /></a>
+							</div>
+							<!-- <div class="logo2">
+								<a href="/"><img src="{% static "img/logo2.png" %}" alt="" /></a>
+							</div> -->
+						</div>
+							<div class="logo-pref">
+								<a href="/"><img src="{% static "img/logopalmas.png" %}" alt="" /></a>
+							</div>
+							<!-- <div class="logo2">
+								<a href="/"><img src="{% static "img/logo2.png" %}" alt="" /></a>
+							</div> -->
+					</div>
+					<div class="row">
+						<div class="text-right">
+							<!-- <div class="follow_us">
+								<ul> -->
+									<!--                                <li><a href="#" class="facebook"></a></li> -->
+									<!--                                <li><a href="#" class="vimeo">Vimeo</a></li> -->
+									<!--                                <li><a href="#" class="tumbrl">Tumbrl</a></li> -->
+									<!--                                <li><a href="#" class="twitter">Twitter</a></li> -->
+									<!--                                <li><a href="#" class="delicious">Delicious</a></li> -->
+								<!-- </ul>
+							</div> -->
+							<!-- <div class="comunidade">Governo e Comunidade unidos por
+								Palmas.</div> -->
+							<div class="clear"></div>
+							<nav id="main_menu">
+								<div class="menu_wrap">
+									<ul class="nav sf-menu">
+										<li><a href="{% url "homepage" %}">Home</a></li>
+										<li class="sub-menu"><a href="javascript:{}">O PPA</a>
+											<ul>
+												<li><a href="{% url "ppa" %}"><span>-</span>O PPA</a></li>
+												<li><a href="{% url "programacao" %}"><span>-</span>Programação</a></li>
+												<li><a href="#"><span>-</span>Reuniões</a></li>
+												<li><a href="#"><span>-</span>Mensagem do Prefeito</a></li>
+											</ul></li>
+										<li><a href="{% url "cadastro" %}">Participe</a></li>
+										<li class="sub-menu"><a href="javascript:{}">Galeria</a>
+											<ul>
+												<li><a href="#"><span>-</span>Vídeos</a></li>
+												<li><a href="#"><span>-</span>Fotos</a></li>
+											</ul></li>
+										<li><a href="#">Fale Conosco</a></li>
+									</ul>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--//header-->
+
+	{% block content_slide %} {% endblock content_slide %}
+
+	<!--     page_container -->
+	<!--     <div class="page_container"> -->
+	<!--         slider -->
+	<!--         <div id="main_slider"> -->
+	<!--             <div class="camera_wrap" id="camera_wrap_1"> -->
+	<!--                 <div data-src="{% static "img/slider/1.jpg"></div> -->
+	<!--                 <div data-src="{% static "img/slider/2.jpg"></div> -->
+	<!--                 <div data-src="{% static "img/slider/3.jpg"></div>                                         -->
+	<!--             </div>#camera_wrap_1 -->
+	<!--             <div class="clear"></div>	 -->
+	<!--         </div>         -->
+	<!--//slider-->
+
+	<!--planning-->
+	<!--         <div class="wrap planning"> -->
+	<!--             <div class="container"> -->
+	<!--                 <div class="row"> -->
+	<!--                     <div class="span3"> -->
+	<!--                         <a href="#"> -->
+	<!--                         	<span class="img_icon icon1"></span> -->
+	<!--                             <span class="link_title">egestas dolor</span> -->
+	<!--                         	Nunc vel arcu arcu. Nulla mollis feugiat dui id tincidunt. Aenean ac lobortis elit. -->
+	<!--                         </a> -->
+	<!--                     </div> -->
+	<!--                     <div class="span3"> -->
+	<!--                         <a href="#"> -->
+	<!--                         	<span class="img_icon icon2"></span> -->
+	<!--                             <span class="link_title">lorem ipsum</span> -->
+	<!--                         	Nunc vel arcu arcu. Nulla mollis feugiat dui id tincidunt. Aenean ac lobortis elit. -->
+	<!--                         </a> -->
+	<!--                     </div> -->
+	<!--                     <div class="span3"> -->
+	<!--                         <a href="#"> -->
+	<!--                         	<span class="img_icon icon3"></span> -->
+	<!--                             <span class="link_title">vestilum eget</span> -->
+	<!--                         	Nunc vel arcu arcu. Nulla mollis feugiat dui id tincidunt. Aenean ac lobortis elit. -->
+	<!--                         </a> -->
+	<!--                     </div> -->
+	<!--                     <div class="span3"> -->
+	<!--                         <a href="#"> -->
+	<!--                         	<span class="img_icon icon4"></span> -->
+	<!--                             <span class="link_title">nulla feugiat</span> -->
+	<!--                         	Nunc vel arcu arcu. Nulla mollis feugiat dui id tincidunt. Aenean ac lobortis elit. -->
+	<!--                         </a> -->
+	<!--                     </div>                           	 -->
+	<!--                 </div> -->
+	<!--             </div> -->
+	<!--         </div> -->
+	<!--//planning-->
+
+	<!--Welcome-->
+	<!--         <div class="wrap block"> -->
+	<!--             <div class="container welcome_block"> -->
+	<!--             	<div class="welcome_line welcome_t"></div> -->
+	<!--             	Cras vulputate pretium massa gravida egestas consectetur?<span>Lorem ipsum dolor sit amet &amp; consectetur adipiscing elit!</span> -->
+	<!--                 <div class="welcome_line welcome_b"></div> -->
+	<!--             </div> -->
+	<!--         </div> -->
+	<!--//Welcome-->
+
+	<!--featured works-->
+	<!--         <div class="wrap block carousel_block"> -->
+	<!--             <div class="container"> -->
+	<!--             	<h2 class="upper">featured works</h2> -->
+	<!--             	<div class="row"> -->
+	<!--                     <div class="span12"> -->
+	<!--                         <ul id="mycarousel" class="jcarousel-skin-tango"> -->
+	<!--                             <li> -->
+	<!--                             	<div class="hover_img"> -->
+	<!--                                 	<a href="{% static "img/featured_works/1.jpg" rel="prettyPhoto[portfolio1]"><img src="{% static "img/featured_works/1.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                     -->
+	<!--                                 </div> -->
+	<!--                             </li> -->
+	<!--                             <li> -->
+	<!--                             	<div class="hover_img"> -->
+	<!--                                 	<a href="{% static "img/featured_works/2.jpg" rel="prettyPhoto[portfolio1]"><img src="{% static "img/featured_works/2.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                     -->
+	<!--                                 </div> -->
+	<!--                             </li> -->
+	<!--                             <li> -->
+	<!--                                 <div class="hover_img"> -->
+	<!--                                 	<a href="{% static "img/featured_works/3.jpg" rel="prettyPhoto[portfolio1]"><img src="{% static "img/featured_works/3.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                     -->
+	<!--                                 </div> -->
+	<!--                             </li>  -->
+	<!--                             <li> -->
+	<!--                                 <div class="hover_img"> -->
+	<!--                                 	<a href="{% static "img/featured_works/4.jpg" rel="prettyPhoto[portfolio1]"><img src="{% static "img/featured_works/4.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                     -->
+	<!--                                 </div> -->
+	<!--                             </li> -->
+	<!--                             <li> -->
+	<!--                             	<div class="hover_img"> -->
+	<!--                                 	<a href="{% static "img/featured_works/1.jpg" rel="prettyPhoto[portfolio1]"><img src="{% static "img/featured_works/1.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                     -->
+	<!--                                 </div> -->
+	<!--                             </li> -->
+	<!--                             <li> -->
+	<!--                             	<div class="hover_img"> -->
+	<!--                                 	<a href="{% static "img/featured_works/2.jpg" rel="prettyPhoto[portfolio1]"><img src="{% static "img/featured_works/2.jpg" alt="" /><span class="portfolio_zoom1"></span></a>                                     -->
+	<!--                                 </div> -->
+	<!--                             </li>                                                        -->
+	<!--                         </ul>                          -->
+	<!--                     </div>                 -->
+	<!--                 </div>                 -->
+	<!--             </div> -->
+	<!--         </div>         -->
+	<!--//featured works-->
+
+	<!--Latest news-->
+	
+	{% block content_formulario %} {% endblock content_formulario %}
+
+	{% block content_noticias %} {% endblock content_noticias %}
+
+	<div class="footer_bottom">
+		<div class="wrap">
+			<div class="container">
+				<div class="row">
+					<div class="span5">
+						<br> <br> <br> <br>
+						<div class="copyright">&copy; 2013 Prefeitura Municipal de
+							Palmas. Todos os Direitos Reservados.</div>
+					</div>
+					<div class="span7">
+						<div class="foot_right_block">
+							<div class="fright">
+								<form action="#" method="post">
+									<input class="inp_search" name="name" type="text"
+										value="Pesquisar no site"
+										onfocus="if (this.value == 'Pesquisar no site') this.value = '';"
+										onblur="if (this.value == '') this.value = 'Pesquisar no site';" />
+								</form>
+							</div>
+							<div class="follow_us">
+								<ul>
+									<li><a rel="tooltip" href="#" title="Facebook"
+										class="facebook">Facebook</a></li>
+									<li><a rel="tooltip" href="#" title="Twitter"
+										class="twitter">Twitter</a></li>
+								</ul>
+							</div>
+							<div class="clear"></div>
+
+							<div class="clear"></div>
+							<div class="foot_menu">
+								<ul>
+									<li><a href="/" class="current">Home</a></li>
+									<li><a href="#">Quem Somos</a></li>
+									<li><a href="/ppa/">PPA</a></li>
+									<li><a href="{% url "cadastro" %}">Participe</a></li>
+									<li><a href="#">Galeria</a></li>
+									<li><a href="#">Fale Conosco</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--//footer-->
+
+	{% block javascript_personalizado %}
+	    <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+	    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+	    <script type="text/javascript" src="{% static "js/superfish.js" %}"></script>
+		<script type="text/javascript">
+		    window.history.forward();
+		    function noBack() { window.history.forward(); }
+		</script>
+	{% endblock javascript_personalizado %}
+	
+</body>
+</html>

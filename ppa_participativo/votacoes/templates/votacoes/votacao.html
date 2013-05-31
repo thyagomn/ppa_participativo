@@ -1,0 +1,146 @@
+{% extends 'base.html' %} {% block content_formulario %}
+{% load i18n admin_static %}
+<style type="text/css">
+	.erro-accordion{
+		padding-bottom: 12px;
+	}
+	.modal-body{
+		font-size: 16px;
+	}
+	input[type="checkbox"], input[type="text"]{
+		margin: 0;
+	}
+	select{
+		margin-bottom: 0;
+	}
+	.row-fluid{
+		margin-left: 5px;
+		font-size: 13px;
+		vertical-align: middle;
+		line-height: 33px
+	}
+	.detalhe{
+		font-size: 18px;
+	}
+	.alert-error{
+		margin-top: 15px;
+		margin-left: -15px;
+	}
+</style>
+<div class="page_container">
+	<div class="breadcrumb">
+		<div class="wrap">
+			<div class="container">
+				Home<span>/</span>Participe
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="wrap">
+		<div class="container">
+			<h2 class="title">
+				<span>Ações disponíveis para votação</span>
+				<h4 class="detalhe">Os campos com * são de preenchimento
+					obrigatório.</h4>
+			</h2>
+
+			<form id="form-votacao" action="." method="POST">
+				{% csrf_token %}
+				{{ form_votos.management_form }}
+				<p class="detalhe"><strong>Contribuinte: </strong>{{ pessoa.nome }}</p>
+				<p class="detalhe"><strong>Votos restantes: </strong><votos id="qtd_votos">{{ qtd_votos }}</votos></p>
+				{% if qtd_votos > 0 %}
+					{% if areas %}
+						{% if form_votos.errors %}<ul class="alert alert-error">Ao marcar votar, você deve selecionar uma localização. Os votos com erro possuem os campos marcados em vemelho.</ul>{% endif %}
+						<div class="accordion" id="diretrizes">
+							{% for area in areas %}
+								<div class="accordion-group">
+									<div class="accordion-heading">
+										<button class="btn btn-mini accordion-toggle" style="width: 100%; text-align: left;" data-toggle="collapse" data-parent="#diretrizes" href="#area-{{ area.pk }}">
+											<i class="icon-chevron-right"></i> {{ area.descricao }}
+										</button>
+									</div>
+									<div id="area-{{ area.pk }}" class="accordion-body {% if form_votos.errors %}in{% endif %} collapse">
+										{% for acao in area.acoes %}
+											{% for form in form_votos %}
+												{% if acao.pk = form.acao.value|add:0 %}
+													<div class="accordion-inner">
+														<div class="row-fluid">
+															{% if acao.acao_manual %}
+																<div class="span7">
+																	{% if form.descricao.errors %}
+																		<span class="alert alert-error erro-accordion">{{ acao.descricao }}: {{ form.descricao }}</span>
+																	{% else %}
+																		{{ acao.descricao }}: {{ form.descricao }} {{ form.descricao.errors }}
+																	{% endif %}
+																</div>
+															{% else %}
+																<div class="span7">{{ acao.descricao }}</div>
+															{% endif %}
+															<div class="span1">{{ form.voto.label }}: {{ form.voto }} {{ form.voto.errors }}</div>
+															<div class="span4">
+																{% if form.localizacao.errors %}
+																	<span class="alert alert-error erro-accordion">{{ form.localizacao.label }}: {{ form.localizacao }}</span>
+																{% else %}
+																	{{ form.localizacao.label }}: {{ form.localizacao }} {{ form.localizacao.errors }}
+																{% endif %}
+															</div>
+														</div>
+														{{ form.acao }}
+														{{ form.voto_manual }}
+													</div>
+												{% endif %}
+											{% endfor %}
+										{% endfor %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+						<input id="submit_cadastro" type="submit" value="Enviar Votação" class="btn">
+					{% else %}
+						No momento não existem áreas/ações disponíveis para votação. Por favor, volte mais tarde.
+					{% endif %}
+				{% else %}
+					Você já não tem mais votos disponíveis.
+				{% endif %}
+			</form>
+			<div id="modal_mensagem_erro" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Atenção!</h3>
+				</div>
+				<div class="modal-body">
+					<p id="mensagem_erro"></p>
+				</div>
+					<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--//page_container-->
+{% endblock content_formulario %}
+
+{% block javascript_personalizado %}
+{{ block.super }}
+	<script type="text/javascript" src="{% static "js/interface_votacao.js" %}"></script>
+	<script>
+        $(function() {
+            $('.accordion-toggle').click(function(){
+                setTimeout(function() {
+                    $('.accordion-body').each(function(){
+                        if ($(this).hasClass('in')){
+                            $(this).prev().children().children().addClass('icon-chevron-down');
+                            $(this).prev().children().children().removeClass('icon-chevron-right');
+                        }else{
+                            $(this).prev().children().children().addClass('icon-chevron-right');
+                            $(this).prev().children().children().removeClass('icon-chevron-down');
+                        }
+                    });
+                }, 0);
+            });
+        });
+    </script>
+{% endblock javascript_personalizado %}
